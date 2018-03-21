@@ -2,11 +2,14 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    'dist/index': './src/index.js',
+  },
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    path: path.resolve('./'),
+    filename: '[name].js',
+    library: 'sentree-common',
+    libraryTarget: 'umd',
   },
   module: {
     rules: [
@@ -71,7 +74,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': path.resolve('src'),
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
