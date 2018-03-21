@@ -3,6 +3,7 @@ import { db } from '@/database'
 export default {
   pop,
   push,
+  unshift,
   update,
   updateWithId,
   updateCollection,
@@ -15,6 +16,10 @@ export function pop(key) {
 
 export function push(key) {
   return (state, payload) => state[key].push(payload)
+}
+
+export function unshift(key) {
+  return (state, payload) => state[key].unshift(payload)
 }
 
 export function update(key) {
