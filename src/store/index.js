@@ -3,6 +3,7 @@ import { db } from '@/database'
 export default {
   pop,
   push,
+  set,
   unshift,
   update,
   updateWithId,
@@ -18,15 +19,15 @@ export function push(key) {
   return (state, payload) => state[key].push(payload)
 }
 
+export function set(key) {
+  return (state, payload) => state[key] = payload
+}
+
 export function unshift(key) {
   return (state, payload) => state[key].unshift(payload)
 }
 
 export function update(key) {
-  return (state, payload) => state[key] = payload
-}
-
-export function set(key) {
   return (state, payload) => state[key] = payload
 }
 
@@ -55,8 +56,8 @@ export function getCollection(opts = {
     if (key === null && path === null) {
       throw new Error('Need collection key or path. Both are null.')
     } else {
-      const path = (path) ? path : `users/${state.user.uid}/${key}`
-      db.get(path).subscribe(col => {
+      const _path = (path !== null) ? path : `users/${state.user.uid}/${key}`
+      db.get(_path).subscribe(col => {
         if (col) {
           if (mutation) {
             commit(mutation, col)
@@ -64,7 +65,7 @@ export function getCollection(opts = {
             done(context, col)
           }
         } else {
-          console.log(`Nothing returned at ${path}`)
+          console.log(`Nothing returned at ${_path}`)
         }
       })
     }
