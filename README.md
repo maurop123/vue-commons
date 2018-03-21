@@ -1,18 +1,32 @@
 # commons-vue
 
-> A Vue.js project
+> Reusable components, store, etc.
 
-## Build Setup
-
+## Install
 ``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+yarn add https://github.com/maurop123/vue-commons.git
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## Contributing
+
+Initial setup
+``` bash
+yarn install
+```
+
+Make changes and build. **Don't forget to build!**
+``` bash
+yarn build
+```
+
+Test changes locally
+```
+rm -rf ../path/node_modules/mauromadeit-vue-commons/*
+cp -r ./* ../path/node_modules/mauromadeit-vue-commons/
+```
+
+Bump version and push
+```
+npm version patch
+git push
+```
