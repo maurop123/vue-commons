@@ -12,13 +12,15 @@ export const auth = firebase.auth()
 
 const objToArry = (obj) => Object.keys(obj).map(key => obj[key])
 
-function get(path = '/') {
+function get(path = '/', toArray = true) {
   return Observable.create((observer) => {
     const ref = fb.child(path)
 
     ref.once('value', (snap) => {
       if (snap.val()) {
-        observer.next( objToArry(snap.val()) )
+        observer.next(
+          (toArray) ? objToArry(snap.val()) : snap.val()
+        )
       } else {
         observer.next(null)
       }
