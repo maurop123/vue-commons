@@ -1,7 +1,7 @@
 {
   "name": "mauromadeit-vue-commons",
   "description": "A Vue.js project",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "mauro <maurop123@gmail.com>",
   "license": "MIT",
   "main": "dist/index.js",
