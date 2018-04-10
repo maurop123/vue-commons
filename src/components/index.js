@@ -1,4 +1,4 @@
-import FlexCard from './PostCard'
+import FlexCard from './FlexCard'
 import PostCard from './PostCard'
 import GridList from './layouts/GridList'
 import MasonryGrid from './layouts/MasonryGrid'
