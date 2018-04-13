@@ -1,5 +1,5 @@
 <template>
-  <v-card v-if="post" class="my-4">
+  <v-card v-if="post" class="my-4 card">
     <v-card-media v-if="post.img"
       class="white--text"
       height="300px"
@@ -32,6 +32,10 @@
 </script>
 
 <style scoped>
+  .card {
+    min-width: 350px;
+  }
+
   .truncate {
     /* max-height: 150px; */
     max-height: 9em;
