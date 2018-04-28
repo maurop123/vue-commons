@@ -1,6 +1,6 @@
-import { db } from '@/database'
+import Database from '@/database/Firebase'
 
-export default {
+const exp = () => ({
   pop,
   push,
   set,
@@ -9,7 +9,27 @@ export default {
   updateWithId,
   updateCollection,
   getCollection,
+  getItByKey,
+  make,
+})
+
+export default exp()
+
+let db
+
+// factory function
+export function make({ dbCfg }) {
+  db = new Database(dbCfg)
+
+  return exp()
 }
+
+// getters
+export function getItByKey(list, key) {
+  return state => k => state[list].find(x => x[key] === k)
+}
+
+// mutations
 
 export function pop(key) {
   return (state, payload) => state[key].pop(payload)
@@ -37,7 +57,7 @@ export function updateWithId(key) {
 
 export function updateCollection(key) {
   return (state, payload) => {
-    if (state.find(x => x.id === payload.id)) {
+    if (state[key].find(x => x.id === payload.id)) {
       return updateWithId(key)(state, payload)
     } else {
       return push(key)(state, payload)
@@ -45,19 +65,24 @@ export function updateCollection(key) {
   }
 }
 
+// actions
+
 export function getCollection(opts = {
   key: null,
   path: null,
   mutation: null,
+  db,
 }, done) {
   const { key, path, mutation } = opts
   return (context) => {
     const {state, commit} = context
+      console.log('state, commt')
     if (key === null && path === null) {
       throw new Error('Need collection key or path. Both are null.')
     } else {
       const _path = (path !== null) ? path : `users/${state.user.uid}/${key}`
       db.get(_path).subscribe(col => {
+        console.log('col', col)
         if (col) {
           if (mutation) {
             commit(mutation, col)

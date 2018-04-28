@@ -27,15 +27,10 @@
   export default {
     name: 'post-view',
     props: ['postId'],
-    data() {
-      return {
-        item: null,
-      }
-    },
-    mounted() {
-      this.$store.dispatch('getPostById', this.postId).then(post => {
-        this.item = post
-      })
+    computed: {
+      item() {
+        return this.$store.getters.getPostById(this.postId)
+      },
     },
   }
 </script>

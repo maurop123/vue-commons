@@ -14,9 +14,10 @@
         :sm6="columns === 2"
         xs12
       >
-        <v-layout column>
+      <v-layout column :ref="`${n-1}Col`">
           <v-flex>
-            <template v-for="item in itemsColumn[n-1]">
+            <template v-if="columnsData && columnsData[n-1]"
+              v-for="item in columnsData[n-1]">
               <slot :item="item"></slot>
             </template>
           </v-flex>
@@ -27,10 +28,8 @@
 </template>
 
 <script>
-  import _range from 'lodash/range'
-
   export default {
-    name: 'masonry-layout',
+    name: 'masonry-grid',
     props: {
       columns: {
         type: Number,
@@ -48,32 +47,47 @@
         type: Array,
         default: () => [],
       },
-      responsive: {
-        type: Boolean,
-        default: false,
-      },
+    },
+    data() {
+      return {
+        columnsData: null,
+        itemsQueue: [],
+      }
     },
     computed: {
       nOfColumns() {
-        const { columns, $vuetify, responsive } = this
-        if (responsive) {
-          return ($vuetify.breakpoint.xlOnly) ? 6
-          : ($vuetify.breakpoint.lgOnly) ? 4
-          : ($vuetify.breakpoint.mdOnly) ? 3
-          : ($vuetify.breakpoint.smOnly) ? 2
-          : 1
-        }
-
+        const { columns } = this
+        // This is for enabling more dynamic or customizable columns
         return columns
       },
-      itemsColumn() {
-        const { items, nOfColumns: columns } = this
-        const newArr = () => _range(columns).map(() => [])
-        return items.reduce((cols, item, i) => {
-          const n = i % columns
-          cols[n].push(item)
-          return cols
-        }, newArr())
+    },
+    watch: {
+      items() {
+        this.resetColumnsData()
+      },
+    },
+    updated() {
+      if (this.itemsQueue.length > 0) this.updateColumnsData()
+    },
+    mounted() {
+      this.resetColumnsData()
+    },
+    methods: {
+      updateColumnsData() {
+        const iShortCol = this.columnsData.reduce((n, col, i) => {
+          const iCol = this.$refs[`${i}Col`][0]
+          const nCol = this.$refs[`${n}Col`][0]
+          return nCol.clientHeight > iCol.clientHeight ? i : n
+        }, 0)
+        const newCol = this.columnsData[iShortCol].concat(this.itemsQueue.shift())
+        this.$set(this.columnsData, iShortCol, newCol)
+      },
+      resetColumnsData() {
+        this.itemsQueue = [].concat(this.items)
+        this.columnsData = []
+        for(let i=0; i<this.columns; ++i) {
+          this.columnsData.push([])
+        }
       },
     },
   }
