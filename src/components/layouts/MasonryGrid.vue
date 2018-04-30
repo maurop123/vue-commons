@@ -14,7 +14,7 @@
         :sm6="columns === 2"
         xs12
       >
-      <v-layout column :ref="`${n-1}Col`">
+      <v-layout column :ref="`col${n-1}`">
           <v-flex>
             <template v-if="columnsData && columnsData[n-1]"
               v-for="item in columnsData[n-1]">
@@ -75,8 +75,8 @@
     methods: {
       updateColumnsData() {
         const iShortCol = this.columnsData.reduce((n, col, i) => {
-          const iCol = this.$refs[`${i}Col`][0]
-          const nCol = this.$refs[`${n}Col`][0]
+          const iCol = this.$refs[`col${i}`][0]
+          const nCol = this.$refs[`col${n}`][0]
           return nCol.clientHeight > iCol.clientHeight ? i : n
         }, 0)
         const newCol = this.columnsData[iShortCol].concat(this.itemsQueue.shift())

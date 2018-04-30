@@ -1,4 +1,4 @@
-import Database from '@/database/Firebase'
+import Database from '@/database/FirebaseClass'
 
 const exp = () => ({
   pop,
