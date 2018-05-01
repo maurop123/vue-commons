@@ -1,24 +1,42 @@
 <template>
-  <v-card v-if="post" class="my-4 card">
-    <v-card-media v-if="post.img"
-      class="white--text"
-      height="300px"
-      :src="post.img"
-    />
-    <v-card-title v-if="post.title">
-      <h2>{{ post.title }}</h2>
-    </v-card-title>
-    <v-card-text v-if="post.content" class="truncate">
-      <div v-html="post.content"></div>
-      <div class="fade"></div>
-    </v-card-text>
-    <v-card-actions v-if="post.id">
-      <v-btn flat block class="blue--text"
-        :to="`posts/${post.id}`"
-      >
-        Read More
-      </v-btn>
-    </v-card-actions>
+  <v-card>
+    <template v-if="item.isArticle">
+      <v-card-media v-if="item.imageUrl"
+        class="white--text"
+        height="300px"
+        :src="item.imageUrl"
+      />
+      <v-card-title v-if="item.title">
+        <h2>{{ item.title }}</h2>
+      </v-card-title>
+      <v-card-text v-if="item.excerpt">
+        <div v-html="item.excerpt"></div>
+        <div class="tags mt-3" v-if="item.tags">
+          <v-chip v-for="tag in item.tags" :key="tag" class="tag"
+          @click="toggleTagFilter(tag)">
+            #{{tag}}
+          </v-chip>
+        </div>
+      </v-card-text>
+      <v-card-actions v-if="item.id">
+        <v-btn flat block class="blue--text"
+          :to="`posts/${item.id}`"
+        >
+          Read More
+        </v-btn>
+      </v-card-actions>
+    </template>
+    <template v-else>
+      <v-card-text v-if="item.content">
+        <div v-html="item.content"></div>
+        <div class="tags mt-3" v-if="item.tags">
+          <v-chip v-for="tag in item.tags" :key="tag" class="tag"
+          @click="toggleTagFilter(tag)">
+            #{{tag}}
+          </v-chip>
+        </div>
+      </v-card-text>
+    </template>
   </v-card>
 </template>
 
@@ -26,15 +44,20 @@
   export default {
     name: 'post-card',
     props: {
-      post: Object,
+      item: Object,
+    },
+    methods: {
+      toggleTagFilter(tag) {
+        this.$emit('toggleTagFilter', tag)
+      },
     },
   }
 </script>
 
 <style scoped>
-  .card {
+  /* .card {
     min-width: 350px;
-  }
+  } */
 
   .truncate {
     /* max-height: 150px; */

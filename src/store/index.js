@@ -76,13 +76,11 @@ export function getCollection(opts = {
   const { key, path, mutation } = opts
   return (context) => {
     const {state, commit} = context
-      console.log('state, commt')
     if (key === null && path === null) {
       throw new Error('Need collection key or path. Both are null.')
     } else {
       const _path = (path !== null) ? path : `users/${state.user.uid}/${key}`
       db.get(_path).subscribe(col => {
-        console.log('col', col)
         if (col) {
           if (mutation) {
             commit(mutation, col)
