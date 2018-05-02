@@ -2,16 +2,9 @@
   <v-container fluid grid-list-xl>
     <v-layout>
       <v-flex v-for="n in nOfColumns" :key="n"
-        :xl2="columns === 6"
-        :xl3="columns === 4"
-        :xl4="columns === 3"
-        :xl6="columns === 2"
-        :lg3="columns === 4"
-        :lg4="columns === 3"
-        :lg6="columns === 2"
-        :md4="columns === 3"
-        :md6="columns === 2"
-        :sm6="columns === 2"
+        :lg3="nOfColumns === 4"
+        :md4="nOfColumns === 3"
+        :sm6="nOfColumns === 2"
         xs12
       >
       <v-layout column :ref="`col${n-1}`">
@@ -33,13 +26,14 @@
     props: {
       columns: {
         type: Number,
-        default: 2,
+        default: null,
         validator(val) {
           return (val === 6
             || val === 4
             || val === 3
             || val === 2
             || val === 1
+            || null
           )
         },
       },
@@ -56,9 +50,16 @@
     },
     computed: {
       nOfColumns() {
-        const { columns } = this
         // This is for enabling more dynamic or customizable columns
-        return columns
+        const { columns } = this
+        const { sm, md, lg, xl } = this.$vuetify.breakpoint
+
+        return (columns !== null) ? columns
+        : xl ? 4
+        : lg ? 4
+        : md ? 3
+        : sm ? 2
+        : 1
       },
     },
     watch: {
@@ -85,10 +86,22 @@
       resetColumnsData() {
         this.itemsQueue = [].concat(this.items)
         this.columnsData = []
-        for(let i=0; i<this.columns; ++i) {
+        for(let i=0; i<this.nOfColumns; ++i) {
           this.columnsData.push([])
         }
       },
     },
   }
 </script>
+
+<style scoped>
+  .gallery-card {
+    transform-origin: center center 0;
+    transition: .3s cubic-bezier(.25,.8,.50,1);
+  }
+  .fade-transition-leave,
+  .fade-transition-leave-active,
+  .fade-transition-leave-to {
+    display: none;
+  }
+</style>

@@ -3,7 +3,7 @@
     <template v-if="item.isArticle">
       <v-card-media v-if="item.imageUrl"
         class="white--text"
-        height="300px"
+        height="150px"
         :src="item.imageUrl"
       />
       <v-card-title v-if="item.title">
