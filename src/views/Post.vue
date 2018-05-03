@@ -1,36 +1,28 @@
-<template>
-  <v-container>
-    <v-layout row wrap>
-      <v-flex xs12 sm8 offset-sm2 md6 offset-md3 lg4 offset-lg4>
-        <v-card class="my-4" v-if="item">
-          <v-card-media v-if="item.img"
-            class="white--text"
-            height="300px"
-            :src="item.img"
-          />
-          <v-card-title v-if="item.title">
-            <h2>{{ item.title }}</h2>
-          </v-card-title>
-          <v-card-text v-if="item.content">
-            <div v-html="item.content"></div>
-          </v-card-text>
-        </v-card>
-        <div v-else>
-          <h1>No Post</h1>
-        </div>
-      </v-flex>
-    </v-layout>
-  </v-container>
+<template lang="pug">
+  v-container
+    v-card(class="my-4" v-if="post")
+      v-card-media(v-if="post.imageUrl"
+        class="white--text"
+        height="300px"
+        :src="post.imageUrl"
+      )
+      v-card-title(v-if="post.title")
+        h2 {{ post.title }}
+      v-card-text(v-if="post.content")
+        div(v-html="post.content")
 </template>
 
 <script>
-  export default {
-    name: 'post-view',
-    props: ['postId'],
-    computed: {
-      item() {
-        return this.$store.getters.getPostById(this.postId)
-      },
-    },
-  }
+export default {
+  name: 'post-view',
+  props: {
+    postId: String,
+  },
+  computed: {
+    post() {
+      return this.$store.state.blog.posts
+      .find(p => p.id === this.postId)
+    }
+  },
+}
 </script>

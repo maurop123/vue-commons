@@ -1,4 +1,4 @@
-import Database from '@/database/FirebaseClass'
+import Database from '@/database'
 
 const exp = () => ({
   pop,
@@ -10,19 +10,19 @@ const exp = () => ({
   updateCollection,
   getCollection,
   getItByKey,
-  make,
+  // make,
 })
 
 export default exp()
 
-let db
+// let db
 
 // factory function
-export function make({ dbCfg }) {
-  db = new Database(dbCfg)
+// export function make({ dbCfg }) {
+//   db = new Database(dbCfg)
 
-  return exp()
-}
+//   return exp()
+// }
 
 // getters
 export function getItByKey(list, key) {
@@ -71,16 +71,16 @@ export function getCollection(opts = {
   key: null,
   path: null,
   mutation: null,
-  db,
+  database,
 }, done) {
-  const { key, path, mutation } = opts
+  const { key, path, mutation, database } = opts
   return (context) => {
     const {state, commit} = context
     if (key === null && path === null) {
       throw new Error('Need collection key or path. Both are null.')
     } else {
       const _path = (path !== null) ? path : `users/${state.user.uid}/${key}`
-      db.get(_path).subscribe(col => {
+      database.get(_path).subscribe(col => {
         if (col) {
           if (mutation) {
             commit(mutation, col)
