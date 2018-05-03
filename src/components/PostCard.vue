@@ -4,6 +4,7 @@
       <v-card-media v-if="item.imageUrl"
         class="white--text"
         height="150px"
+        contain
         :src="item.imageUrl"
       />
       <v-card-title v-if="item.title">
@@ -18,9 +19,9 @@
           </v-chip>
         </div>
       </v-card-text>
-      <v-card-actions v-if="item.id">
+      <v-card-actions v-if="item.link && item.id">
         <v-btn flat block class="blue--text"
-          :to="`posts/${item.id}`"
+          :to="`posts/${item.id}/${item.link}`"
         >
           Read More
         </v-btn>
