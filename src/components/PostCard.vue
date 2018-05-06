@@ -20,8 +20,15 @@
         </div>
       </v-card-text>
       <v-card-actions v-if="item.link && item.id">
-        <v-btn flat block class="blue--text"
+        <v-btn v-if="item.link.indexOf('http') !== 0"
+          flat block class="blue--text"
           :to="`posts/${item.id}/${item.link}`"
+        >
+          Read More
+        </v-btn>
+        <v-btn flat block class="blue--text"
+          :href="item.link"
+          target="blank"
         >
           Read More
         </v-btn>
@@ -48,6 +55,13 @@
       item: Object,
     },
     methods: {
+      goToLink(item) {
+        if (item.link.indexOf('http') !== 0) {
+          this.$router.push(`posts/${item.id}/${item.link}`)
+        } else {
+          window.location = item.link
+        }
+      },
       toggleTagFilter(tag) {
         this.$emit('toggleTagFilter', tag)
       },
