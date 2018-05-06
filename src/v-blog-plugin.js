@@ -12,7 +12,7 @@ export default {
       props: true,
     }])
 
-    const blog = new BlogStore({ destination })
+    const blog = new BlogStore({ destination, rootOpts: opts })
     store.registerModule('blog', blog.store)
     store.dispatch('getBlogPosts')
   }

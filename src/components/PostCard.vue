@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card v-if="item">
     <template v-if="item.isArticle">
       <v-card-media v-if="item.imageUrl"
         class="white--text"

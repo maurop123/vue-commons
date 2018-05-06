@@ -11,6 +11,7 @@ export default class {
     const opts = Object.assign(defaultOpts, options)
     this.destination = opts.destination
     this.db = new Database({ ref: opts.ref })
+    this.rootOpts = opts.rootOpts || {}
   }
 
   get state() {
@@ -43,8 +44,14 @@ export default class {
     }
   }
 
+  get modules() {
+    let modules = {}
+    if (this.rootOpts.snackbar) modules['snackbar'] = {}
+    return modules
+  }
+
   get store() {
-    const { state, getters, mutations, actions } = this
-    return { state, getters, mutations, actions }
+    const { state, getters, mutations, actions, modules } = this
+    return { state, getters, mutations, actions, modules }
   }
 }
