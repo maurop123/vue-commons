@@ -11,7 +11,8 @@
           <v-flex>
             <template v-if="columnsData && columnsData[n-1]"
               v-for="item in columnsData[n-1]">
-              <slot :item="item"></slot>
+              <!-- <slot :item="item"></slot> -->
+              <slot v-bind="item"></slot>
             </template>
           </v-flex>
         </v-layout>

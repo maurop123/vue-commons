@@ -55,13 +55,6 @@
       item: Object,
     },
     methods: {
-      goToLink(item) {
-        if (item.link.indexOf('http') !== 0) {
-          this.$router.push(`posts/${item.id}/${item.link}`)
-        } else {
-          window.location = item.link
-        }
-      },
       toggleTagFilter(tag) {
         this.$emit('toggleTagFilter', tag)
       },
