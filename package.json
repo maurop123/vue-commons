@@ -1,7 +1,10 @@
 {
   "name": "@mauromadeit/vue-commons",
   "version": "0.1.2",
-  "main": "./dist/@mauromadeit",
+  "main": "./dist/@mauromadeit/vue-commons.umd.js",
+  "files": [
+    "dist/*"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --target lib --name @mauromadeit/vue-commons src/components/index.js",
