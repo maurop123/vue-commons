@@ -1,7 +1,5 @@
 <template lang="pug">
-    v-card
-      v-card-text
-        div(ref="editor" class="editor")
+  div(ref="editor" class="editor")
 </template>
 
 <script>
@@ -19,9 +17,7 @@
     },
     data() {
       return {
-        activeTab: 0,
         editor: null,
-        tabs: ['medium'],
       }
     },
     mounted() {
@@ -34,7 +30,6 @@
       if (this.value) this.editor.setContent(this.value)
 
       this.editor.subscribe('editableInput', (ev, editable) => {
-        console.log('editable', { editable })
         this.$emit('input', editable.innerHTML)
       })
     },
