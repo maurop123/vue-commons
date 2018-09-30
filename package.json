@@ -10,7 +10,8 @@
     "build": "vue-cli-service build --target lib --name @mauromadeit/vue-commons src/index.js",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "firebase": "^5.5.2",
