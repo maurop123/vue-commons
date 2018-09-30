@@ -30,11 +30,14 @@ db.push('items', payload).subscribe()
     label="City"
     :rules="[required()]"
   )
-  state-model(:stateProp="`enrollment.owners.${i}.dateOfBirth`")
-    date-text-field(
+
+  // which is equivalent to...
+
+  state-model(stateProp="enrollment.companyName")
+    v-text-field(
       slot-scope="{ value, input }"
-      v-bind="{ value, input }"
-      label="Date of Birth"
+      :value="value" @input="input"
+      label="Company Legal Name"
       :rules="[required()]"
     )
 ```
