@@ -34,7 +34,8 @@
       if (this.value) this.editor.setContent(this.value)
 
       this.editor.subscribe('editableInput', (ev, editable) => {
-        this.$emit('input', editable)
+        console.log('editable', { editable })
+        this.$emit('input', editable.innerHTML)
       })
     },
   }
