@@ -6,7 +6,7 @@
           md4 offset-md4
           sm6 offset-sm3
         >
-          <MediumEditor />
+          <MediumEditor v-model="text" />
         </v-flex>
       </v-layout>
     </v-content>
@@ -23,6 +23,16 @@ export default {
   name: 'app',
   components: {
     MediumEditor,
-  }
+  },
+  data() {
+    return {
+      text: '',
+    }
+  },
+  watch: {
+    text(val) {
+      console.log('text', val)
+    },
+  },
 }
 </script>
