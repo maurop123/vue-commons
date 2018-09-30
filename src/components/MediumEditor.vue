@@ -12,13 +12,18 @@
     props: {
       value: {
         type: String,
-        default: '',
+        default: '<p>it</p>',
       },
     },
     data() {
       return {
         editor: null,
       }
+    },
+    watch: {
+      value(val) {
+        this.editor.setContent(val)
+      },
     },
     mounted() {
       this.editor = new MediumEditor(this.$refs.editor, {
