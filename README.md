@@ -22,6 +22,23 @@ db.get('items').subscribe(data => ...) // [{ id: 1, name: Al}, { id: 2, name: Bo
 db.push('items', payload).subscribe()
 ```
 
+### State Model and Texts
+
+```pug
+  text-state-model(
+    :stateProp="`enrollment.owners.${i}.city`"
+    label="City"
+    :rules="[required()]"
+  )
+  state-model(:stateProp="`enrollment.owners.${i}.dateOfBirth`")
+    date-text-field(
+      slot-scope="{ value, input }"
+      v-bind="{ value, input }"
+      label="Date of Birth"
+      :rules="[required()]"
+    )
+```
+
 ## Contributing
 
 Initial setup
