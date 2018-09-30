@@ -20,6 +20,7 @@
     data() {
       return {
         activeTab: 0,
+        editor: null,
         tabs: ['medium'],
       }
     },
@@ -32,7 +33,7 @@
 
       if (this.value) this.editor.setContent(this.value)
 
-      editor.subscribe('editableInput', (ev, editable) => {
+      this.editor.subscribe('editableInput', (ev, editable) => {
         this.$emit('input', editable)
       })
     },
