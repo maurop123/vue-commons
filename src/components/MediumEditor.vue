@@ -1,16 +1,7 @@
-<template>
-  <div>
-    <v-tabs v-model="activeTab" class="elevation-1">
-      <v-tab key="medium">
-        medium
-      </v-tab>
-    </v-tabs>
-    <v-tab-items>
-      <v-tab-item key="medium">
-        <div ref="editor" class="editor"></div>
-      </v-tab-item>
-    </v-tab-items>
-  </div>
+<template lang="pug">
+    v-card
+      v-card-text
+        div(ref="editor" class="editor")
 </template>
 
 <script>
