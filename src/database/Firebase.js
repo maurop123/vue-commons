@@ -15,11 +15,11 @@ export default class {
     this.auth = firebase.auth()
   }
 
-  get(path = '/', toArray = true) {
+  get(path = '/', toArray = true, once = true) {
     return Observable.create((observer) => {
       const ref = this.fb.child(path)
 
-      ref.once('value', (snap) => {
+      const handle = (snap) => {
         if (snap.val()) {
           observer.next(
             (toArray) ? this.objToArry(snap.val()) : snap.val()
@@ -27,7 +27,10 @@ export default class {
         } else {
           observer.next(null)
         }
-      })
+      }
+
+      if (once) ref.once('value', handle)
+      else ref.on('value', handle)
     })
   }
 

@@ -1,2 +1,2 @@
-import db from './firebase'
+import db from './Firebase'
 export default db
