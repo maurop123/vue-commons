@@ -15,6 +15,9 @@
 
 <script>
 import MediumEditor from './components/MediumEditor.vue'
+import defComp from './components'
+
+console.log('defComp', defComp)
 
 export default {
   name: 'app',
