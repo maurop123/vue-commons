@@ -1,31 +1,47 @@
-# commons
+# commons-vue
 
-## Project setup
+> Reusable components, store, etc.
+
+## Install
+``` bash
+yarn add https://github.com/maurop123/vue-commons.git
 ```
+
+## Examples
+
+### Reusing firebase db
+
+```js
+// src/database.js
+import { Database } from 'mauromadeit-vue-commons'
+export default new Database({ ref: 'money-reports' })
+
+// import and use anywhere
+import db from '@/database'
+db.get('items').subscribe(data => ...) // [{ id: 1, name: Al}, { id: 2, name: Bo }]
+db.push('items', payload).subscribe()
+```
+
+## Contributing
+
+Initial setup
+```bash
 yarn install
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
+Make changes and build. **Don't forget to build!**
+```bash
+yarn build
 ```
 
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
+Test changes locally
+```bash
+rm -rf ../path/node_modules/mauromadeit-vue-commons/*
+cp -r ./* ../path/node_modules/mauromadeit-vue-commons/
 ```
 
-### Run your end-to-end tests
-```
-yarn run test:e2e
+Bump version and push
+```bash
+npm version patch
+git push
 ```
