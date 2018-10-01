@@ -35,17 +35,23 @@ export default class {
   }
 
   set(path = '/', payload) {
+    console.log('firebase set payload', payload)
     return Observable.create(obs => {
       //TODO try fromPromise
       this.fb.child(path).set(payload)
-      .then(() => obs.next(payload))
+      .then(() => {
+        // console.log('done firebase set payload', payload)
+        obs.next(payload)
+      })
       .catch(err => obs.error(err))
     })
   }
 
   push(path = '/', payload) {
     const id = this.fb.child(path).push().key
+    console.log('firebase push id', id)
     const newPath = `${path}/${id}`
+    console.log('firebase push newPath', newPath)
     return this.set(newPath, { id, ...payload })
   }
 
