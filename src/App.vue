@@ -14,7 +14,9 @@
 </template>
 
 <script>
-import MediumEditor from './components/MediumEditor.vue'
+import MediumEditor from './components/MediumEditor'
+import DB from './database'
+const db = new DB({ ref: 'test' })
 
 export default {
   name: 'app',
@@ -25,6 +27,11 @@ export default {
     return {
       text: '',
     }
+  },
+  mounted() {
+    db.push('/', { foo: 'bar' }).subscribe(p => {
+      console.log('p', p)
+    })
   },
 }
 </script>
