@@ -1,6 +1,6 @@
 {
   "name": "@mauromadeit/vue-commons",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "main": "./dist/@mauromadeit/vue-commons.umd.js",
   "files": [
     "dist/*"
