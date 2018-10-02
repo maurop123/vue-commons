@@ -1,13 +1,11 @@
 <template>
   <v-app>
     <v-content>
-      <v-layout>
-        <v-flex class="my-5"
-          md4 offset-md4
-          sm6 offset-sm3
-        >
-          <MediumEditor v-model="text" />
-        </v-flex>
+      <v-layout column align-center>
+        <MediumEditor
+          v-model="text"
+          :options="options"
+        />
       </v-layout>
     </v-content>
   </v-app>
@@ -26,6 +24,11 @@ export default {
   data() {
     return {
       text: '',
+      options: {
+        placeholder: {
+          text: 'options test pass',
+        },
+      },
     }
   },
   mounted() {

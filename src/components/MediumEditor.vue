@@ -14,6 +14,10 @@
         type: String,
         default: '<p>it</p>',
       },
+      options: {
+        type: Object,
+        default: () => null,
+      },
     },
     data() {
       return {
@@ -30,6 +34,7 @@
         placeholder: {
           text: 'Write first, edit later...',
         },
+        ...this.options,
       })
 
       if (this.value) this.editor.setContent(this.value)
