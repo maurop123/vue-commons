@@ -1,7 +1,7 @@
 module.exports = {
   configureWebpack: {
     externals: {
-      vuetify: 'Vuetify',
+      // vuetify: 'Vuetify',
     },
   },
 }

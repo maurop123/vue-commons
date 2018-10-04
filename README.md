@@ -9,6 +9,14 @@ yarn add https://github.com/maurop123/vue-commons.git
 
 ## Examples
 
+### Masonry Component
+
+```pug
+masonry(:items="pages")
+  v-card(slot-scope="page" class="mb-3")
+    v-card-title(v-if="page.title") {{page.title}}
+```
+
 ### Reusing firebase db
 
 ```js
@@ -25,21 +33,21 @@ db.push('items', payload).subscribe()
 ### State Model and Texts
 
 ```pug
-  text-state-model(
-    :stateProp="`enrollment.owners.${i}.city`"
-    label="City"
+text-state-model(
+  :stateProp="`enrollment.owners.${i}.city`"
+  label="City"
+  :rules="[required()]"
+)
+
+// which is equivalent to...
+
+state-model(stateProp="enrollment.companyName")
+  v-text-field(
+    slot-scope="{ value, input }"
+    :value="value" @input="input"
+    label="Company Legal Name"
     :rules="[required()]"
   )
-
-  // which is equivalent to...
-
-  state-model(stateProp="enrollment.companyName")
-    v-text-field(
-      slot-scope="{ value, input }"
-      :value="value" @input="input"
-      label="Company Legal Name"
-      :rules="[required()]"
-    )
 ```
 
 ## Contributing

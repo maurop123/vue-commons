@@ -1,17 +1,16 @@
-<template>
-  <v-app>
-    <v-content>
-      <v-layout column align-center>
-        <MediumEditor
-          v-model="text"
-          :options="options"
-        />
-      </v-layout>
-    </v-content>
-  </v-app>
+<template lang="pug">
+  v-app
+    v-content
+      app-view
+        v-layout(column align-center)
+          MediumEditor(
+            v-model="text"
+            :options="options"
+          )
 </template>
 
 <script>
+import AppView from './components/App'
 import MediumEditor from './components/MediumEditor'
 import DB from './database'
 const db = new DB({ ref: 'test' })
@@ -19,6 +18,7 @@ const db = new DB({ ref: 'test' })
 export default {
   name: 'app',
   components: {
+    AppView,
     MediumEditor,
   },
   data() {
