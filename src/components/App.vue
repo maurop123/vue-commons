@@ -36,7 +36,7 @@
   import Bus from './bus'
 
   export default {
-    name: 'vuetify-app-view',
+    name: 'app-toolbar',
     props: {
       title: {
         type: String,
