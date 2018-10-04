@@ -1,4 +1,9 @@
 // General purpose mutations
+
+const state = {
+  dark: false,
+}
+
 const mutations = {
   setState(state, { key, val }) {
     const parts = key.split('.')
@@ -10,5 +15,6 @@ const mutations = {
 }
 
 export default {
-  mutations
+  state,
+  mutations,
 }

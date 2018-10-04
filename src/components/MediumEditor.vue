@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(ref="editor" class="editor")
+  div(ref="editor" class="editor" :style="customStyles")
 </template>
 
 <script>
@@ -23,6 +23,14 @@
       return {
         editor: null,
       }
+    },
+    computed: {
+      customStyles() {
+        return (this.dark) ? 'background:rgba(0,0,0,0)' : ''
+      },
+      dark() {
+        return this.$store.state.dark || false
+      },
     },
     watch: {
       value(val) {

@@ -75,8 +75,19 @@
     data () {
       return {
         drawer: false,
-        darkMode: false,
       }
+    },
+    computed: {
+      darkMode: {
+        get() {
+          return this.$store.state.dark
+        },
+        set(val) {
+          this.$store.commit('setState', {
+            key: 'dark', val
+          })
+        },
+      },
     },
     methods: {
       scrollToBottom() {
