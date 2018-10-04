@@ -25,7 +25,7 @@
           v-list-tile-content
             v-btn(v-if="!dark" @click="darkMode = false" dark) Dark Mode
             v-btn(v-else @click="darkMode = true" light) Light Mode
-    v-toolbar(app fixed color="purple darken-4" dark)
+    v-toolbar(app fixed :color="toolbarColor" :dark="toolbarColor !== ''")
       v-toolbar-side-icon(@click.stop="drawer = !drawer")
       v-toolbar-title(v-if="title")
         v-btn(flat @click="$router.push('/')") {{ title }}
@@ -39,6 +39,10 @@
     name: 'vuetify-app-view',
     props: {
       title: {
+        type: String,
+        default: '',
+      },
+      toolbarColor: {
         type: String,
         default: '',
       },
