@@ -1,5 +1,5 @@
 export default {
-  AppToolbar: require('./App'),
+  AppToolbar: require('./AppToolbar'),
   Masonry: require('./Masonry'),
   MediumEditor: require('./MediumEditor'),
   StateModel: require('./StateModel'),

@@ -1,7 +1,7 @@
 <template lang="pug">
   v-app
     v-content
-      app-view
+      app-toolbar
         v-layout(column align-center)
           MediumEditor(
             v-model="text"
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AppView from './components/App'
+import AppToolbar from './components/AppToolbar'
 import MediumEditor from './components/MediumEditor'
 import DB from './database'
 const db = new DB({ ref: 'test' })
@@ -18,7 +18,7 @@ const db = new DB({ ref: 'test' })
 export default {
   name: 'app',
   components: {
-    AppView,
+    AppToolbar,
     MediumEditor,
   },
   data() {
