@@ -30,6 +30,7 @@
       v-toolbar-title(v-if="title")
         v-btn(flat @click="$router.push('/')") {{ title }}
     //router-view(class="mt-custom" v-bind="{ user }")
+    slot
 </template>
 
 <script>
