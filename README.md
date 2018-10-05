@@ -45,6 +45,17 @@ text-state-model(
   :rules="[required()]"
 )
 
+// which is equivalent to...
+
+state-model(stateProp="enrollment.companyName")
+  v-text-field(
+    slot-scope="{ value, input }"
+    :value="value" @input="input"
+    label="Company Legal Name"
+    :rules="[required()]"
+  )
+```
+
 ### SSL Cert
 
 1. https://www.aidanwoods.com/blog/lets-encrypt-the-manual-certificate/
@@ -58,16 +69,13 @@ sudo cat /etc/letsencrypt/live/journal.mauromadeit.com/privkey.pem
 sudo cat /etc/letsencrypt/live/journal.mauromadeit.com/chain.pem
 ```
 
-// which is equivalent to...
+### Update PWA Icons
 
-state-model(stateProp="enrollment.companyName")
-  v-text-field(
-    slot-scope="{ value, input }"
-    :value="value" @input="input"
-    label="Company Legal Name"
-    :rules="[required()]"
-  )
-```
+- Download font awesome icon like here https://fontawesome.com/icons/journal-whills?style=solid
+- Convert to png here https://cloudconvert.com/svg-to-png
+  - 260px by 260px and +200dpi
+- Gen icons here - https://realfavicongenerator.net
+- Replace the files in /public
 
 ## Contributing
 
