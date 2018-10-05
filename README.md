@@ -17,11 +17,17 @@ masonry(:items="pages")
     v-card-title(v-if="page.title") {{page.title}}
 ```
 
+### Bus
+
+```js
+import { bus } from '@mauromadeit/vue-commons'
+```
+
 ### Reusing firebase db
 
 ```js
 // src/database.js
-import { Database } from 'mauromadeit-vue-commons'
+import { Database } from '@mauromadeit/vue-commons'
 export default new Database({ ref: 'money-reports' })
 
 // import and use anywhere
@@ -38,6 +44,19 @@ text-state-model(
   label="City"
   :rules="[required()]"
 )
+
+### SSL Cert
+
+1. https://www.aidanwoods.com/blog/lets-encrypt-the-manual-certificate/
+2. https://p3plcpnl0875.prod.phx3.secureserver.net:2083/cpsess4761954074/frontend/gl_paper_lantern/ssl/install.html
+
+```bash
+sudo ls /etc/letsencrypt/live/journal.mauromadeit.com/
+# copy files below to site above
+sudo cat /etc/letsencrypt/live/journal.mauromadeit.com/cert.pem
+sudo cat /etc/letsencrypt/live/journal.mauromadeit.com/privkey.pem
+sudo cat /etc/letsencrypt/live/journal.mauromadeit.com/chain.pem
+```
 
 // which is equivalent to...
 
