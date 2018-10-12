@@ -2,6 +2,7 @@
 
 const state = {
   dark: false,
+  toast: '',
 }
 
 const mutations = {

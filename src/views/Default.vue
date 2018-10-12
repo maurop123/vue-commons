@@ -1,10 +1,15 @@
 <template lang="pug">
   app-toolbar(v-bind="{sideNav, topNav}")
     v-layout(column align-center)
-      MediumEditor(
-        v-model="text"
-        :options="options"
-      )
+      v-flex
+        v-btn(
+          @click="showSnackbar"
+        ) Show Snackbar
+      v-flex
+        MediumEditor(
+          v-model="text"
+          :options="options"
+        )
 </template>
 
 <script>
@@ -44,6 +49,14 @@
           },
         ],
       }
+    },
+    methods: {
+      showSnackbar() {
+        this.$store.commit('setState', {
+          key: 'toast',
+          val: 'O Hai!' + new Date(),
+        })
+      },
     },
     mounted() {
       db.push('/', { foo: 'bar' }).subscribe(p => {

@@ -47,11 +47,18 @@
     //router-view(class="mt-custom" v-bind="{ user }")
     v-content
       slot
+    v-snackbar(
+      v-model="snackbar"
+      :timeout="2000"
+      bottom
+    )
+      v-layout {{ toast }}
 </template>
 
 <script>
   import Bus from './bus'
   import { title, paramCase } from 'change-case'
+  import { mapState } from 'vuex'
   
   const navLinkValidator = links => links
   .reduce((res, link) => (link.path || link.label) && res, true)
@@ -101,9 +108,11 @@
     data () {
       return {
         drawer: false,
+        snackbar: false,
       }
     },
     computed: {
+      ...mapState(['toast']),
       darkMode: {
         get() {
           return this.$store.state.dark
@@ -119,6 +128,11 @@
       },
       topNavLinks() {
         return this.topNav.map(this.navify)
+      },
+    },
+    watch: {
+      toast() {
+        this.snackbar = true
       },
     },
     methods: {
