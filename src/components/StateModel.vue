@@ -15,9 +15,7 @@ export default {
   },
   methods: {
     setValue(val) {
-      this.$store.commit('setState', {
-        key: this.stateProp, val
-      })
+      this.$store.commit('setState', [this.stateProp, val])
     },
   },
 }

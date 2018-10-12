@@ -52,10 +52,9 @@
     },
     methods: {
       showSnackbar() {
-        this.$store.commit('setState', {
-          key: 'toast',
-          val: 'O Hai!' + new Date(),
-        })
+        this.$store.commit('setState', [
+          'toast', 'O Hai!' + new Date(),
+        ])
       },
     },
     mounted() {

@@ -118,9 +118,7 @@
           return this.$store.state.dark
         },
         set(val) {
-          this.$store.commit('setState', {
-            key: 'dark', val
-          })
+          this.$store.commit('setState', ['dark', val])
         },
       },
       sideNavLinks() {
