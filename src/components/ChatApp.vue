@@ -9,21 +9,15 @@
       app
     )
       v-list
-        v-list-tile(
-          v-for="link in sideNavLinks"
-          :key="JSON.stringify(link)"
-        )
-          v-list-tile-content
-            v-btn(:to="link.path" flat) {{ link.label }}
         div(v-if="!noLogin")
           v-list-tile(v-if="!user")
             v-list-tile-content
               v-btn(flat to="/login") Login
-        div(v-else)
-          v-list-tile {{ user.email }}
-          v-list-tile
-            v-list-tile-content
-              v-btn(flat to="/login") Logout
+          div(v-else)
+            v-list-tile {{ user.email }}
+            v-list-tile
+              v-list-tile-content
+                v-btn(flat to="/login") Logout
         v-list-tile(v-if="!noScrollToBottom")
           v-list-tile-content
             v-btn(flat @click="scrollToBottom") Scroll To Bottom
@@ -35,29 +29,14 @@
       v-toolbar-side-icon(@click.stop="drawer = !drawer")
       v-toolbar-title(v-if="title")
         v-btn(flat @click="$router.push('/')") {{ title }}
-      v-spacer
-      v-toolbar-items(class="hidden-sm-down")
-        v-btn(
-          v-for="link in topNavLinks"
-          :key="JSON.stringify(link)"
-          v-if="link"
-          :to="link.path"
-          flat
-        ) {{ link.label }}
-    //router-view(class="mt-custom" v-bind="{ user }")
-    v-content
-      slot
+    slot
 </template>
 
 <script>
   import Bus from './bus'
-  import { title, paramCase } from 'change-case'
-  
-  const navLinkValidator = links => links
-  .reduce((res, link) => (link.path || link.label) && res, true)
 
   export default {
-    name: 'app-toolbar',
+    name: 'chat-app',
     props: {
       title: {
         type: String,
@@ -83,15 +62,9 @@
         type: Boolean,
         default: false,
       },
-      sideNav: {
+      items: {
         type: Array,
         default: () => [],
-        validator: navLinkValidator,
-      },
-      topNav: {
-        type: Array,
-        default: () => [],
-        validator: navLinkValidator,
       },
       user: {
         type: Object,
@@ -114,20 +87,8 @@
           })
         },
       },
-      sideNavLinks() {
-        return this.sideNav.map(this.navify)
-      },
-      topNavLinks() {
-        return this.topNav.map(this.navify)
-      },
     },
     methods: {
-      navify(link) {
-        return (link.path && link.label) ? link
-        : (link.label) ? { ...link, path: paramCase(link.label) }
-        : (link.path) ? { ...link, label: title(link.path) }
-        : null
-      },
       scrollToBottom() {
         Bus.$emit('scrollToBottom')
       },
