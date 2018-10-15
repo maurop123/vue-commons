@@ -48,9 +48,10 @@
     v-content
       slot
     v-snackbar(
-      v-model="snackbar"
+      v-model="snackbarOn"
       :timeout="2000"
       bottom
+      v-bind="snackbar"
     )
       v-layout {{ toast }}
 </template>
@@ -100,6 +101,10 @@
         default: () => [],
         validator: navLinkValidator,
       },
+      snackbar: {
+        type: Object,
+        default: () => ({}),
+      },
       user: {
         type: Object,
         default: () => ({}),
@@ -108,7 +113,7 @@
     data () {
       return {
         drawer: false,
-        snackbar: false,
+        snackbarOn: false,
       }
     },
     computed: {
@@ -130,7 +135,7 @@
     },
     watch: {
       toast() {
-        this.snackbar = true
+        this.snackbarOn = true
       },
     },
     methods: {
