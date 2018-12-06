@@ -9,6 +9,8 @@ yarn add https://github.com/maurop123/vue-commons.git
 
 ## Examples
 
+### Table Editor
+
 ### Masonry Component
 
 ```pug

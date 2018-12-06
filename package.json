@@ -1,6 +1,8 @@
 {
   "name": "@mauromadeit/vue-commons",
   "version": "0.4.11",
+  "author": "Mauro Perez",
+  "license": "MIT",
   "main": "./dist/@mauromadeit/vue-commons.umd.js",
   "files": [
     "dist/*"
@@ -38,6 +40,5 @@
     "pug-plain-loader": "^1.0.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.17"
-  },
-  "license": "MIT"
+  }
 }
