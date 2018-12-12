@@ -11,6 +11,8 @@ yarn add https://github.com/maurop123/vue-commons.git
 
 ### Table Editor
 
+Based on https://vuetifyjs.com/en/components/data-tables#example-crud
+
 ```pug
 table-editor(
   v-bind="{ headers, items }"
