@@ -1,6 +1,6 @@
 {
   "name": "@mauromadeit/vue-commons",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": "Mauro Perez",
   "license": "MIT",
   "main": "./dist/@mauromadeit/vue-commons.umd.js",
