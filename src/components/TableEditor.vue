@@ -1,55 +1,27 @@
-<template>
-  <div>
-    <crud-dialog
-      header="Edit Location"
+<template lang="pug">
+div
+  slot(name="dialog")
+    crud-dialog(
       :item="selectedItem"
+      :fields="fields"
       @save="save"
+      @cancel="resetSelectedItem"
       ref="editorModal"
-      hide-activator
-    >
-      <template slot-scope="{ editedItem }">
-        <v-flex xs12 sm6>
-          <v-text-field label="Name" v-model="editedItem.name" />
-        </v-flex>
-        <v-flex xs12 sm6>
-          <v-select v-model="editedItem.category"
-            label="Category"
-            :items="cats"
-          />
-        </v-flex>
-        <v-flex xs12>
-          <v-text-field label="Address" v-model="editedItem.address" />
-        </v-flex>
-        <v-flex xs6 sm3>
-          <v-text-field label="Lat" v-model="editedItem.lat" />
-        </v-flex>
-        <v-flex xs6 sm3>
-          <v-text-field label="Lon" v-model="editedItem.lon" />
-        </v-flex>
-        <v-flex xs12 sm6>
-          <v-text-field label="Website" v-model="editedItem.website" />
-        </v-flex>
-      </template>
-    </crud-dialog>
-    <v-data-table v-bind="{ headers, items }" hide-actions>
-      <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ getCatsName(props.item.category) }}</td>
-        <td class="text-xs-right">{{ props.item.address }}</td>
-        <td class="text-xs-right">{{ props.item.lat }}</td>
-        <td class="text-xs-right">{{ props.item.lon }}</td>
-        <td class="text-xs-right">{{ props.item.website }}</td>
-        <td class="justify-center layout px-0">
-          <v-btn icon class="mx-0" @click="editItem(props.item)">
-            <v-icon color="blue">edit</v-icon>
-          </v-btn>
-          <v-btn icon class="mx-0" @click="deleteItem(props.item)">
-            <v-icon color="red">delete</v-icon>
-          </v-btn>
-        </td>
-      </template>
-    </v-data-table>
-  </div>
+    )
+  slot(name="table")
+    v-data-table(v-bind="{ headers: headersComputed, items }" hide-actions)
+      template(slot="items" slot-scope="props")
+        td {{ props.item[headers[0].value] }}
+        td(
+          class="text-xs-right"
+          v-for="key in headers.slice(1)"
+          :key="key.value"
+        ) {{ props.item[key.value] }}
+        td(class="justify-center layout px-0")
+          v-btn(icon class="mx-0" @click="editItem(props.item)")
+            v-icon(color="blue") edit
+          v-btn(icon class="mx-0" @click="deleteItem(props.item)")
+            v-icon(color="red") delete
 </template>
 
 <script>
@@ -58,6 +30,7 @@
   export default {
     name: 'table-editor',
     props: {
+      //TODO add validation
       headers: Array,
       items: Array,
     },
@@ -70,21 +43,20 @@
       }
     },
     computed: {
-      categories() {
-        return this.$store.state.categories
+      headersComputed() {
+        const actions = this.headers.filter(({ value }) =>
+          value === 'actions')
+
+        return (actions.length === 0)
+          ? this.headers.concat({ text: 'Actions', value: 'actions' })
+          : this.headers
       },
-      cats() {
-        return this.categories.map(c => ({
-          text: c.name,
-          value: c.id,
-        }))
+      fields() {
+        return this.headers
+          .map(({text, value}) => ({key: value, label: text}))
       },
     },
     methods: {
-      getCatsName(id) {
-        const cat = this.categories.find(c => c.id === id)
-        return cat ? cat.name : ''
-      },
       open() {
         this.$refs.editorModal.open()
       },
@@ -92,10 +64,12 @@
         this.selectedItem = item
       },
       save(item) {
-        this.$store.dispatch('saveLocation', item)
+        //this.$store.dispatch('saveLocation', item)
+        this.$emit('save', item)
       },
       deleteItem(item) {
-        this.$store.dispatch('delLocation', item)
+        //this.$store.dispatch('delLocation', item)
+        this.$emit('delete', item)
         this.resetSelectedItem()
       },
       resetSelectedItem() {

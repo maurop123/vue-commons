@@ -1,42 +1,28 @@
-<template>
-  <v-dialog v-model="dialog" max-width="500px">
-    <v-btn v-if="!hideActivator" slot="activator"
-      color="primary" dark class="mb-2"
-    >
-      New Item
-    </v-btn>
-    <v-card>
-      <v-card-title>
-        <span class="headline">
-          {{ header }}
-        </span>
-      </v-card-title>
-      <v-card-text>
-        <v-container grid-list-md>
-          <v-layout wrap>
-            <slot :editedItem="editedItem">
-              <v-flex xs12 sm6 md4 v-if="fields"
-                v-for="{ key, label } in fields" :key="key"
-              >
-                <v-text-field :label="label" v-model="editedItem[key]" />
-              </v-flex>
-              <v-flex v-else>
-                <span class="headline">
-                  Nothing to edit :-p
-                </span>
-              </v-flex>
-            </slot>
-          </v-layout>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn color="blue darken-1" flat @click.native="reset">Reset</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-        <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+<template lang="pug">
+v-dialog(v-model="dialog" max-width="500px")
+  v-btn(v-if="!hideActivator" slot="activator"
+    color="primary" dark class="mb-2"
+  ) New Item
+
+  v-card
+    v-card-title(v-if="header")
+      span(class="headline") {{ header }}
+    v-card-text
+      v-container(grid-list-md)
+        v-layout(wrap)
+          slot(:editedItem="editedItem")
+            //v-flex(xs12 sm6 md4 v-if="fieldsComputed"
+            v-flex(xs12 sm6 md4 v-if="fields"
+              v-for="{ key, label } in fields" :key="key"
+            )
+              v-text-field(:label="label" v-model="editedItem[key]")
+            v-flex(v-else)
+              span(class="headline") Nothing to edit :-p
+    v-card-actions
+      v-btn(color="blue darken-1" flat @click.native="reset") Reset
+      v-spacer
+      v-btn(color="blue darken-1" flat @click.native="close") Cancel
+      v-btn(color="blue darken-1" flat @click.native="save") Save
 </template>
 
 <script>
@@ -47,6 +33,7 @@
       fields: Array,
       item: Object,
       hideActivator: Boolean,
+      noAutoOpen: Boolean,
     },
     data() {
       const flatObject = obj => obj
@@ -63,9 +50,20 @@
         editedItem,
       }
     },
+    computed: {
+      fieldsComputed() {
+        //TODO figure this out
+        return (this.fields) ? this.fields
+          : Object.keys(this.fields)
+            .map(f => ({ key: f, label: f }))
+      },
+    },
     watch: {
       item(val) {
-        if (val && Object.keys(val).length > 0) {
+        if (
+          val && Object.keys(val).length > 0
+          && !this.noAutoOpen
+        ) {
           this.editedItem = val
           this.dialog = true
         }

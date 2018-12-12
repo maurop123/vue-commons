@@ -11,6 +11,23 @@ yarn add https://github.com/maurop123/vue-commons.git
 
 ### Table Editor
 
+```pug
+table-editor(
+  v-bind="{ headers, items }"
+  @save="save" @delete="delete"
+)
+```
+
+```js
+methods: {
+  save(item) { ... },
+  delete(item) { ... },
+}
+```
+
+For model of headers and items...
+https://vuetifyjs.com/en/components/data-tables
+
 ### Masonry Component
 
 ```pug
