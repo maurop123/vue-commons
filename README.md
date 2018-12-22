@@ -7,6 +7,12 @@
 yarn add https://github.com/maurop123/vue-commons.git
 ```
 
+Then import
+
+```js
+import { components } from '@mauromadeit/vue-commons'
+```
+
 ## Examples
 
 ### Table Editor
