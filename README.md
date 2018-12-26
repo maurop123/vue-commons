@@ -104,6 +104,10 @@ sudo cat /etc/letsencrypt/live/journal.mauromadeit.com/chain.pem
 - Gen icons here - https://realfavicongenerator.net
 - Replace the files in /public
 
+## Gotcha
+
+May not work in runtime only builds
+
 ## Contributing
 
 Initial setup

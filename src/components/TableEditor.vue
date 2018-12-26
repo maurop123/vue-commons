@@ -31,6 +31,8 @@ div
     name: 'table-editor',
     props: {
       //TODO add validation
+      //TODO allow headers to be null and compute them from items properties
+      //TODO allow headers to be an array filtered on computed headers
       headers: Array,
       items: Array,
     },
