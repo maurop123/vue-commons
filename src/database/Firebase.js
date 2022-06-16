@@ -70,6 +70,8 @@ export default class {
   }
 
   objToArry(obj) { return Object.keys(obj).map(key => obj[key]) }
+  
+  objToArr(obj) { return this.objToArry(obj) } // objToArry -> objToArr
 }
 
 
