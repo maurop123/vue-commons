@@ -69,9 +69,7 @@ export default class {
     return this.set(path, null)
   }
 
-  objToArry(obj) { return Object.keys(obj).map(key => obj[key]) }
-  
-  objToArr(obj) { return this.objToArry(obj) } // objToArry -> objToArr
+  objToArr(obj) { return Object.keys(obj).map(key => obj[key]) }
 }
 
 
