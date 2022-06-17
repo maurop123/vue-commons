@@ -13,7 +13,7 @@
 ## npm dependencies
 
 ```
-npm i -D firebase@7
+npm i -D firebase@7.24.0
 npm i -D rxjs
 ```
 
